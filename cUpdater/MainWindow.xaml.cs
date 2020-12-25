@@ -17,29 +17,23 @@ namespace cUpdater
 
         private void StartUpdate_Click(object sender, RoutedEventArgs e)
         {
-
-
             // var client = new WebClient();
 
             //try
             //{
-            Task.Run((() =>
+            Task.Run(() =>
             {
-
-                for (int i = 0; i <= 100; i++)
+                for (var i = 0; i <= 100; i++)
                 {
                     Thread.Sleep(100);
 
-                    Dispatcher.Invoke((() =>
-                {
-
-                    pBarUp.Value = i;
-                    //Update();
-
-                }));
+                    Dispatcher.Invoke(() =>
+                    {
+                        pBarUp.Value = i;
+                        //Update();
+                    });
                 }
-
-            }));
+            });
         }
 
 
@@ -56,7 +50,6 @@ namespace cUpdater
                 //File.Delete(@".\Demo.zip");
                 //Process.Start(@".\Cleaner.exe");
                 //Close();
-
             }
             catch (Exception ex)
             {

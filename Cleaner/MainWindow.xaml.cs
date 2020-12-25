@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,9 +13,9 @@ namespace Cleaner
     /// </summary>
     public partial class MainWindow : Window
     {
-        private long totalSize;
+        private bool cancel;
         private string dateUpdate;
-        bool cancel = false;
+        private long totalSize;
 
         public MainWindow()
         {
@@ -27,7 +26,6 @@ namespace Cleaner
         //Event Btn For Scan 
         private async void scan_Click(object sender, RoutedEventArgs e)
         {
-
             MessageBox.Show("Start scan");
             btnClean.IsEnabled = false;
             btnHistory.IsEnabled = false;
@@ -60,7 +58,7 @@ namespace Cleaner
 
                 lastUpdate.Content += "2 Days ago";
                 sizeToClean.Content += totalSize.ToPrettySize();
-                lastScan.Content += this.dateUpdate;
+                lastScan.Content += dateUpdate;
                 pcName.Visibility = Visibility.Visible;
                 userName.Visibility = Visibility.Visible;
                 pcOs.Visibility = Visibility.Visible;
@@ -69,8 +67,6 @@ namespace Cleaner
                 userName.Content += $" {Environment.UserName}.";
                 pcOs.Content += $" {Environment.OSVersion}";
             }
-
-
         }
 
 
@@ -85,32 +81,28 @@ namespace Cleaner
 
                 var length = files.Length;
 
-               // var length = 150;
+                //var length = 150;
 
-                for (var i = 0; i <= length; i++)
-                {
+                for (var i = 1; i <= length; i++)
                     if (!cancel)
                     {
                         Thread.Sleep(10);
                         Dispatcher.Invoke(() =>
                         {
-                            if (this.cancel == false && length > 0)
+                            if (cancel == false && length > 0)
                             {
-                                result.Text += $" {i}- {files[i].FullName} {Environment.NewLine}";
-                               //pbar.Value += 100 / length;
+                                result.Text += $" {i}- {files[i - 1].FullName} {Environment.NewLine}";
+                                //pbar.Value += 100 / length;
                                 pbar.Value = CalcPer(i, length);
                                 textProg.Text = Math.Round(pbar.Value, 1) + "%";
                                 result.ScrollToEnd();
-                                Console.WriteLine(files[i].Length.ToString());
-                                totalSize += Convert.ToInt64(files[i].Length);
+                                Console.WriteLine(files[i - 1].Length.ToString());
+                                totalSize += Convert.ToInt64(files[i - 1].Length);
                             }
                             else
                             {
                                 totalSize = 0;
-
                             }
-
-
                         });
                     }
                     else
@@ -118,11 +110,7 @@ namespace Cleaner
                         Console.WriteLine("Exit");
 
                         break;
-
                     }
-
-
-                }
             }
             catch (Exception e)
             {
@@ -174,11 +162,11 @@ namespace Cleaner
         //Hundle the History Of Cleaning
         private void HistoryHundler()
         {
-            Task.Run((() =>
+            Task.Run(() =>
             {
                 var date = DateTime.Now.ToString("dd-MM-yyyy");
                 var time = DateTime.Now.ToString("HH-mm");
-                this.dateUpdate = $"{date} | {time}";
+                dateUpdate = $"{date} | {time}";
 
                 var dir = Directory.CreateDirectory(@".\log\" + date);
                 var file = File.Create($"./log/{date}/{time}.txt");
@@ -188,23 +176,20 @@ namespace Cleaner
                 {
                     File.OpenWrite(directory);
                     var text = $"Last scan was {date} at {time} Total Deleted was : {totalSize.ToPrettySize()} \n";
-                        MessageBox.Show(directory);
-                        File.GetAccessControl(directory);
-                        File.WriteAllText(directory, text);
+                    MessageBox.Show(directory);
+                    File.GetAccessControl(directory);
+                    File.WriteAllText(directory, text);
 
-                        //Clear.ClearTempData();
-
+                    //Clear.ClearTempData();
                 }
                 catch (Exception ex)
                 {
-                    File.OpenWrite(directory);
-                    File.GetAccessControl(directory);
-                    File.WriteAllText(directory, ex.Message);
+                    //File.OpenWrite(directory);
+                    // File.GetAccessControl(directory);
+                    //File.WriteAllText(directory, ex.Message);
                     Console.WriteLine(ex.Message);
-
                 }
-            }));
-            
+            });
         }
 
 
@@ -223,16 +208,13 @@ namespace Cleaner
             try
             {
                 if (!webClient.DownloadString("http://weirdof.com/adam.txt").Contains("1.0.0"))
-                {
                     if (MessageBox.Show("Looks like there is an update! Do you want to download it?", "Cleaner",
                         MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                         using (var client = new WebClient())
                         {
-                            Process.Start($"./cUpdater.exe");
+                            Process.Start("./cUpdater.exe");
                             Close();
                         }
-                }
-
             }
             catch (Exception ex)
             {
@@ -243,8 +225,7 @@ namespace Cleaner
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            this.cancel = true;
+            cancel = true;
         }
-
     }
 }
