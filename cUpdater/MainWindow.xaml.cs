@@ -26,16 +26,19 @@ namespace cUpdater
             Task.Run((() =>
             {
 
-                Thread.Sleep(10);
-                Dispatcher.Invoke((() =>
+                for (int i = 0; i <= 100; i++)
                 {
-                    for (int i = 0; i <= 100; i++)
-                    {
-                        pBarUp.Value = i;
-                        //Update();
-                    }
+                    Thread.Sleep(100);
+
+                    Dispatcher.Invoke((() =>
+                {
+
+                    pBarUp.Value = i;
+                    //Update();
 
                 }));
+                }
+
             }));
         }
 
@@ -44,9 +47,9 @@ namespace cUpdater
         {
             try
             {
-                //Thread.Sleep(5000);
+                Thread.Sleep(5000);
                 //File.Delete(@".\Demo.exe");
-                //client.DownloadFile("yourhostinglink", @"Demo.zip");
+                //client.DownloadFile("http://weirdof.com/v1.5.0.txt", @"v1.5.0.zip");
                 //var zipPath = @".\Demo.zip";
                 //var extractPath = @".\";
                 //ZipFile.ExtractToDirectory(zipPath, extractPath);

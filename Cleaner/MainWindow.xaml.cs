@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -82,9 +83,9 @@ namespace Cleaner
                 var dir = new DirectoryInfo(temp);
                 var files = dir.GetFiles("*.*", SearchOption.AllDirectories);
 
-                //var length = files.Length;
+                var length = files.Length;
 
-                var length = 150;
+               // var length = 150;
 
                 for (var i = 0; i <= length; i++)
                 {
@@ -96,7 +97,7 @@ namespace Cleaner
                             if (this.cancel == false && length > 0)
                             {
                                 result.Text += $" {i}- {files[i].FullName} {Environment.NewLine}";
-                                //pbar.Value += 100 / length;
+                               //pbar.Value += 100 / length;
                                 pbar.Value = CalcPer(i, length);
                                 textProg.Text = Math.Round(pbar.Value, 1) + "%";
                                 result.ScrollToEnd();
@@ -173,32 +174,37 @@ namespace Cleaner
         //Hundle the History Of Cleaning
         private void HistoryHundler()
         {
-            var date = DateTime.Now.ToString("dd-MM-yyyy");
-            var time = DateTime.Now.ToString("HH-mm");
-            this.dateUpdate = $"{date} | {time}";
-            var dir = Directory.CreateDirectory("./" + date);
-
-            try
+            Task.Run((() =>
             {
-                var temp = Path.GetTempPath();
-                var files = Directory.GetFiles(temp, "*.*", SearchOption.AllDirectories);
-                Console.WriteLine(dir);
+                var date = DateTime.Now.ToString("dd-MM-yyyy");
+                var time = DateTime.Now.ToString("HH-mm");
+                this.dateUpdate = $"{date} | {time}";
 
-                using (var sw = new StreamWriter($@"./{dir}/{time}.txt "))
+                var dir = Directory.CreateDirectory(@".\log\" + date);
+                var file = File.Create($"./log/{date}/{time}.txt");
+                var directory = Path.GetFullPath(file.Name);
 
+                try
                 {
-                    sw.WriteLine($"Last scan was {date} at {time} Total Deleted was :{totalSize.ToPrettySize()}");
+                    File.OpenWrite(directory);
+                    var text = $"Last scan was {date} at {time} Total Deleted was : {totalSize.ToPrettySize()} \n";
+                        MessageBox.Show(directory);
+                        File.GetAccessControl(directory);
+                        File.WriteAllText(directory, text);
+
+                        //Clear.ClearTempData();
+
                 }
+                catch (Exception ex)
+                {
+                    File.OpenWrite(directory);
+                    File.GetAccessControl(directory);
+                    File.WriteAllText(directory, ex.Message);
+                    Console.WriteLine(ex.Message);
 
-                //Clear.ClearTempData();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                var msg = File.AppendText($@"./{dir}/[{time}].txt ");
-                msg.WriteLine(e.Message);
-
-            }
+                }
+            }));
+            
         }
 
 
@@ -206,7 +212,7 @@ namespace Cleaner
         private void btnHistory_Click(object sender, RoutedEventArgs e)
         {
             //Vs.ToggleV(analyse);
-            Process.Start(@"C:/Cleaner-logs");
+            Process.Start(@"./log/");
         }
 
 
@@ -222,7 +228,7 @@ namespace Cleaner
                         MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                         using (var client = new WebClient())
                         {
-                            Process.Start("./cUpdater.exe");
+                            Process.Start($"./cUpdater.exe");
                             Close();
                         }
                 }
