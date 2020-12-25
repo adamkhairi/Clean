@@ -3,44 +3,47 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Cleaner"
         mc:Ignorable="d"
         Title="Cleaner" Height="450" Width="899"
         Icon="/Assets/Icon1.ico"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontFamily="Verdana Pro"
         Name="Home">
-    <Grid Background="#FF1D1B1B" HorizontalAlignment="Left" Width="894" >
+    <Grid Background="#FF1D1B1B" HorizontalAlignment="Left" Width="894">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="242*"/>
-            <ColumnDefinition Width="133*"/>
-            <ColumnDefinition Width="190*"/>
-            <ColumnDefinition Width="135*"/>
-            <ColumnDefinition Width="194*"/>
+            <ColumnDefinition Width="242*" />
+            <ColumnDefinition Width="133*" />
+            <ColumnDefinition Width="190*" />
+            <ColumnDefinition Width="135*" />
+            <ColumnDefinition Width="194*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="65*"/>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="35*"/>
-            <RowDefinition Height="175*"/>
-            <RowDefinition Height="46*"/>
+            <RowDefinition Height="65*" />
+            <RowDefinition Height="100*" />
+            <RowDefinition Height="35*" />
+            <RowDefinition Height="175*" />
+            <RowDefinition Height="46*" />
         </Grid.RowDefinitions>
 
-        <Rectangle Fill="#FFDADADA" Height="399" Stroke="Black" VerticalAlignment="Top" RadiusX="15" RadiusY="15" Margin="0,12,10,0" Grid.ColumnSpan="4" Grid.Column="1" d:IsLocked="True" Grid.RowSpan="5"/>
+        <Rectangle Fill="#FFDADADA" Height="399" Stroke="Black" VerticalAlignment="Top" RadiusX="15" RadiusY="15"
+                   Margin="0,12,10,0" Grid.ColumnSpan="4" Grid.Column="1" d:IsLocked="True" Grid.RowSpan="5" />
 
-        <StackPanel Grid.ColumnSpan="4" Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="380.736"  Grid.Row="0" Height="48.89" >
-            <Label x:Name="bigTitle" Content="Scan your computer" HorizontalAlignment="Center" FontWeight="Bold" FontSize="32" FontFamily="Verdana Pro Black"/>
+        <StackPanel Grid.ColumnSpan="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Width="380.736" Grid.Row="0" Height="48.89">
+            <Label x:Name="bigTitle" Content="Scan your computer" HorizontalAlignment="Center" FontWeight="Bold"
+                   FontSize="32" FontFamily="Verdana Pro Black" />
         </StackPanel>
 
-        <StackPanel x:Name="statisic" Orientation="Horizontal" HorizontalAlignment="Center"  Grid.ColumnSpan="4" Grid.Column="1" Grid.Row="1" Width="560" Margin="46,0">
-            <StackPanel Orientation="Vertical"   Grid.Column="1" Margin="10" Width="250">
-                <Label x:Name="sizeToClean" Content="Size : "/>
-                <Label x:Name="lastUpdate" Content="Last Update : "/>
+        <StackPanel x:Name="statisic" Orientation="Horizontal" HorizontalAlignment="Center" Grid.ColumnSpan="4"
+                    Grid.Column="1" Grid.Row="1" Width="560" Margin="46,0">
+            <StackPanel Orientation="Vertical" Margin="10" Width="250">
+                <Label x:Name="sizeToClean" Content="Size : " />
+                <Label x:Name="lastUpdate" Content="Last Update : " />
                 <Label x:Name="lastScan" Content="Last Scan : " />
 
             </StackPanel>
-            <StackPanel Orientation="Vertical"    Grid.Column="3"  Margin="10" Width="250">
-                <Label x:Name="pcName" Content="Computer Name : "/>
-                <Label x:Name="userName" Content="User Name : "/>
+            <StackPanel Orientation="Vertical" Margin="10" Width="250">
+                <Label x:Name="pcName" Content="Computer Name : " />
+                <Label x:Name="userName" Content="User Name : " />
                 <Label x:Name="pcOs" Content="OS : " />
             </StackPanel>
             <!--<Label x:Name="lastScan1" Content="" HorizontalAlignment="Left"  />
@@ -49,98 +52,134 @@
 
             <!--<Label x:Name="pcname" Content="{x:Array r:Environment.MachineName}" />-->
         </StackPanel>
-        <StackPanel Grid.Column="1"  Grid.ColumnSpan="4" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button x:Name="scan" Content="SCAN NOW" Grid.Row="0" Grid.Column="4" Height="38" Width="250" VerticalAlignment="Top" FontWeight="Bold" Grid.IsSharedSizeScope="True" Background="#FF272727" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Cursor="Hand"  BorderBrush="{x:Null}" Click="scan_Click" />
+        <StackPanel Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="2" VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <Button x:Name="scan" Content="SCAN NOW" Height="38" Width="250"
+                    VerticalAlignment="Top" FontWeight="Bold" Grid.IsSharedSizeScope="True" Background="#FF272727"
+                    Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                    Cursor="Hand" BorderBrush="{x:Null}" Click="scan_Click" />
         </StackPanel>
         <StackPanel x:Name="leftMenu" Grid.Row="0" Grid.RowSpan="5" Grid.Column="0">
-            <Image Width="45" Margin="0,15,0,5" Source="Assets/broom.png" Stretch="Fill" RenderTransformOrigin="0.559,0.871"/>
+            <Image Width="45" Margin="0,15,0,5" Source="Assets/broom.png" Stretch="Fill"
+                   RenderTransformOrigin="0.559,0.871" />
 
-            <Label Content="CLEANER"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="111" Height="44" FontWeight="Black" Foreground="White" FontSize="18" ForceCursor="True" HorizontalContentAlignment="Center"/>
-            <Rectangle Fill="#FFDADADA" HorizontalAlignment="Center" Height="1" RadiusY="15" RadiusX="15" Stroke="White" Width="230"/>
+            <Label Content="CLEANER" HorizontalAlignment="Center" VerticalAlignment="Top" Width="111" Height="44"
+                   FontWeight="Black" Foreground="White" FontSize="18" ForceCursor="True"
+                   HorizontalContentAlignment="Center" />
+            <Rectangle Fill="#FFDADADA" HorizontalAlignment="Center" Height="1" RadiusY="15" RadiusX="15"
+                       Stroke="White" Width="230" />
 
-            <Button x:Name="resume" Content="Resume" HorizontalAlignment="Center" Cursor="Hand" Height="56" VerticalAlignment="Top" Width="243.324" Foreground="White" FontWeight="Bold">
+            <Button x:Name="resume" Content="Resume" HorizontalAlignment="Center" Cursor="Hand" Height="56"
+                    VerticalAlignment="Top" Width="243.324" Foreground="White" FontWeight="Bold">
                 <Button.BorderBrush>
-                    <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                    <SolidColorBrush Color="#FF707070" Opacity="0" />
                 </Button.BorderBrush>
                 <Button.Background>
-                    <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                    <SolidColorBrush Color="#FFDDDDDD" Opacity="0" />
                 </Button.Background>
             </Button>
-            <Rectangle Fill="#FFDADADA" HorizontalAlignment="Center" Height="1" RadiusY="15" RadiusX="15" Stroke="White" Width="230"/>
-            <Button x:Name="analyse" Content="Analyse" HorizontalAlignment="Left" Height="63" VerticalAlignment="Top" Width="242" Foreground="White" Cursor="Hand">
+            <Rectangle Fill="#FFDADADA" HorizontalAlignment="Center" Height="1" RadiusY="15" RadiusX="15"
+                       Stroke="White" Width="230" />
+            <Button x:Name="analyse" Content="Analyse" HorizontalAlignment="Left" Height="63" VerticalAlignment="Top"
+                    Width="242" Foreground="White" Cursor="Hand">
                 <Button.BorderBrush>
-                    <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                    <SolidColorBrush Color="#FF707070" Opacity="0" />
                 </Button.BorderBrush>
                 <Button.Background>
-                    <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                    <SolidColorBrush Color="#FFDDDDDD" Opacity="0" />
                 </Button.Background>
             </Button>
-            <Rectangle Fill="#FFDADADA" HorizontalAlignment="Center" Height="1" RadiusY="15" RadiusX="15" Stroke="White" Width="230"/>
-            <Button x:Name="history" Content="History" HorizontalAlignment="Left" Height="66"  VerticalAlignment="Top" Width="242" Foreground="White" Cursor="Hand">
+            <Rectangle Fill="#FFDADADA" HorizontalAlignment="Center" Height="1" RadiusY="15" RadiusX="15"
+                       Stroke="White" Width="230" />
+            <Button x:Name="history" Content="History" HorizontalAlignment="Left" Height="66" VerticalAlignment="Top"
+                    Width="242" Foreground="White" Cursor="Hand">
                 <Button.BorderBrush>
-                    <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                    <SolidColorBrush Color="#FF707070" Opacity="0" />
                 </Button.BorderBrush>
                 <Button.Background>
-                    <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
+                    <SolidColorBrush Color="#FFDDDDDD" Opacity="0" />
                 </Button.Background>
             </Button>
-            <Rectangle Fill="#FFDADADA" HorizontalAlignment="Center" Height="1" RadiusY="15" RadiusX="15" Stroke="White" Width="230"/>
-            <Button x:Name="webSite" Content="WEB SITE" Height="30" Width="130" Margin="0,50,0,0" VerticalAlignment="Center" FontSize="9" Background="#FF272727" Foreground="White" Cursor="Hand" Click="webSite_Click" Grid.Row="3"
-                Grid.Column="0" Grid.RowSpan="2">
+            <Rectangle Fill="#FFDADADA" HorizontalAlignment="Center" Height="1" RadiusY="15" RadiusX="15"
+                       Stroke="White" Width="230" />
+            <Button x:Name="webSite" Content="WEB SITE" Height="30" Width="130" Margin="0,50,0,0"
+                    VerticalAlignment="Center" FontSize="9" Background="#FF272727" Foreground="White" Cursor="Hand"
+                    Click="webSite_Click">
                 <Button.BorderBrush>
-                    <SolidColorBrush Color="#FF707070" Opacity="0"/>
+                    <SolidColorBrush Color="#FF707070" Opacity="0" />
 
                 </Button.BorderBrush>
 
             </Button>
         </StackPanel>
-        <Border BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="4" Grid.Column="1" HorizontalAlignment="Center" Height="2" Margin="79,5,79,0" VerticalAlignment="Top" Width="494" CornerRadius="20" Grid.Row="3"/>
-        <StackPanel x:Name="toolButtons" Orientation="Horizontal" Grid.ColumnSpan="4" Grid.Column="1" HorizontalAlignment="Center"  Grid.Row="3" VerticalAlignment="Center" Height="142" Margin="112.5,34.5,112.5,44.5" Width="427" Grid.RowSpan="2">
-            <Button x:Name="btnClean" Content="Clean" Height="132" Width="139" Background="#FF272727" Foreground="White" FontWeight="Bold" FontSize="20" ClipToBounds="True" Cursor="Hand" BorderBrush="{x:Null}" Click="btnClean_Click">
+        <Border BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="4" Grid.Column="1"
+                HorizontalAlignment="Center" Height="2" Margin="79,5,79,0" VerticalAlignment="Top" Width="494"
+                CornerRadius="20" Grid.Row="3" />
+        <StackPanel x:Name="toolButtons" Orientation="Horizontal" Grid.ColumnSpan="4" Grid.Column="1"
+                    HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Height="142"
+                    Margin="112.5,34.5,112.5,44.5" Width="427" Grid.RowSpan="2">
+            <Button x:Name="btnClean" Content="Clean" Height="132" Width="139" Background="#FF272727"
+                    Foreground="White" FontWeight="Bold" FontSize="20" ClipToBounds="True" Cursor="Hand"
+                    BorderBrush="{x:Null}" Click="btnClean_Click">
                 <Button.Effect>
                     <DropShadowEffect />
                 </Button.Effect>
             </Button>
-            <Button x:Name="btnHistory" Content="History" Height="132" Width="139" Margin="5" Background="#FF272727" Foreground="White" FontSize="20" FontWeight="Bold" ClipToBounds="True" Cursor="Hand" BorderBrush="{x:Null}" Click="btnHistory_Click">
+            <Button x:Name="btnHistory" Content="History" Height="132" Width="139" Margin="5" Background="#FF272727"
+                    Foreground="White" FontSize="20" FontWeight="Bold" ClipToBounds="True" Cursor="Hand"
+                    BorderBrush="{x:Null}" Click="btnHistory_Click">
                 <Button.Effect>
-                    <DropShadowEffect/>
+                    <DropShadowEffect />
                 </Button.Effect>
             </Button>
-            <Button x:Name="btnUpdate" Content="Update" Width="139"  Height="132" Background="#FF272727" Foreground="White" FontWeight="Bold" FontSize="20" ClipToBounds="True" Cursor="Hand" BorderBrush="{x:Null}" Click="btnUpdate_Click">
+            <Button x:Name="btnUpdate" Content="Update" Width="139" Height="132" Background="#FF272727"
+                    Foreground="White" FontWeight="Bold" FontSize="20" ClipToBounds="True" Cursor="Hand"
+                    BorderBrush="{x:Null}" Click="btnUpdate_Click">
                 <Button.Effect>
-                    <DropShadowEffect/>
+                    <DropShadowEffect />
                 </Button.Effect>
             </Button>
 
 
         </StackPanel>
-        <StackPanel Grid.Row="4" Height="23" Grid.ColumnSpan="4"  Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-            <Label Name="vesrion" Content="v1.0.0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="11"/>
-            <Label Content="CLEANER is a software made in Morocco"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="11" />
+        <StackPanel Grid.Row="4" Height="23" Grid.ColumnSpan="4" Grid.Column="1" HorizontalAlignment="Center"
+                    VerticalAlignment="Center" Orientation="Horizontal">
+            <Label Name="vesrion" Content="v1.0.0" HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Center" FontSize="11" />
+            <Label Content="CLEANER is a software made in Morocco" HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Center" FontSize="11" />
 
         </StackPanel>
 
-        <StackPanel Name="progress" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="1" Orientation="Horizontal" Margin="20" Visibility="Hidden">
+        <StackPanel Name="progress" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="1" Orientation="Horizontal"
+                    Margin="20" Visibility="Hidden">
 
-            <ProgressBar Name="pbar" Minimum="0" Maximum="100" Margin="0,20" HorizontalAlignment="Center" Height="26" VerticalAlignment="Center" Width="450" Foreground="#FF474747" IsIndeterminate="False" RenderTransformOrigin="0.5,0.449">
+            <ProgressBar Name="pbar" Minimum="0" Maximum="100" Margin="0,20" HorizontalAlignment="Center" Height="26"
+                         VerticalAlignment="Center" Width="450" Foreground="#FF474747" IsIndeterminate="False"
+                         RenderTransformOrigin="0.5,0.449">
                 <ProgressBar.RenderTransform>
                     <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform AngleY="-0.079"/>
-                        <RotateTransform/>
-                        <TranslateTransform Y="-0.332"/>
+                        <ScaleTransform />
+                        <SkewTransform AngleY="-0.079" />
+                        <RotateTransform />
+                        <TranslateTransform Y="-0.332" />
                     </TransformGroup>
                 </ProgressBar.RenderTransform>
             </ProgressBar>
-            <TextBlock x:Name="textProg"  HorizontalAlignment="Center" VerticalAlignment="Center" Padding="4" Height="25" TextAlignment="Center"  />
+            <TextBlock x:Name="textProg" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="4"
+                       Height="25" TextAlignment="Center" />
             <Button Name="btnExit" Width="100" HorizontalAlignment="Center" Height="20" Click="btnExit_Click">Cancel Scan</Button>
 
         </StackPanel>
 
-        <StackPanel Name="infos" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="2" Grid.RowSpan="2" Visibility="Hidden" >
-            <ToggleButton x:Name="btnShowInfo" Content="Show info" HorizontalAlignment="Left" Margin="20,0" Height="25" VerticalAlignment="Top" Width="80" IsChecked="False" Checked="ShowInfo" Unchecked="HideInfo" Background="White" />
+        <StackPanel Name="infos" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="2" Grid.RowSpan="2" Visibility="Hidden">
+            <ToggleButton x:Name="btnShowInfo" Content="Show info" HorizontalAlignment="Left" Margin="20,0" Height="25"
+                          VerticalAlignment="Top" Width="80" IsChecked="False" Checked="ShowInfo" Unchecked="HideInfo"
+                          Background="White" />
 
-            <TextBox x:Name="result" Height="180" Text="" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="500" Margin="0,5" TextWrapping="NoWrap" VerticalScrollBarVisibility="Hidden" Visibility="Visible"/>
+            <TextBox x:Name="result" Height="180" Text="" VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                     Width="500" Margin="0,5" TextWrapping="NoWrap" VerticalScrollBarVisibility="Hidden"
+                     Visibility="Visible" />
         </StackPanel>
 
     </Grid>
