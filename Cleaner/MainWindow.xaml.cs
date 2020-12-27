@@ -242,22 +242,31 @@ namespace Cleaner
         //Event Btn For Update
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            var webClient = new WebClient();
-            try
+
+            Dispatcher.Invoke(() =>
             {
-                if (!webClient.DownloadString("https://pastebin.com/dl/FXi6TAuS").Contains("1.0.0"))
-                    if (MessageBox.Show("Looks like there is an update! Do you want to download it?", "Cleaner",
-                        MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        using (var client = new WebClient())
+                using (var webClient = new WebClient())
+                {
+                    Thread.Sleep(100);
+
+                    try
+                    {
+                        if (!webClient.DownloadString("https://pastebin.com/dl/FXi6TAuS").Contains("1.0.0"))
                         {
-                            Process.Start("./cUpdater.exe");
-                            Close();
+                            if (MessageBox.Show("Looks like there is an update! Do you want to download it?", "Cleaner",
+                                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                            {
+                                Process.Start("./cUpdater.exe");
+                                Close();
+                            }
                         }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            });
         }
 
         //Button Cancel Scan 

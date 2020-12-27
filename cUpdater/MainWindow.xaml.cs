@@ -31,19 +31,19 @@ namespace cUpdater
                 {
                     Thread.Sleep(200);
 
-                    Dispatcher.InvokeAsync(() =>
+                    Dispatcher.Invoke(() =>
                     {
                         PBarUp.Value = i;
                     });
                 }
             });
-            Task.Run(() =>
+            Task.Run((() =>
             {
-                Dispatcher.InvokeAsync(() =>
-                {
-                    Update();
-                });
-            });
+                Update();
+            }));
+            Thread.Sleep(50);
+
+            //Update();
 
             if (PBarUp.Value == 100)
             {
@@ -58,7 +58,23 @@ namespace cUpdater
             try
             {
                 var client = new WebClient();
-                File.Delete(@".\Cleaner.exe");
+                var files = Directory.GetFiles("./", "*.*", SearchOption.AllDirectories);
+                var bakup = Directory.CreateDirectory("./backup");
+
+                foreach (var file in files)
+                {
+                    try
+                    {
+                        File.Copy(file, $"./backup/{file}");
+                        //File.Delete(file);
+
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+                }
+                //File.Delete(@".\Cleaner.exe");
                 client.DownloadFile("https://github.com/adamkhairi/cc/raw/main/Cleaner.zip", @"Cleaner.zip");
                 var zipPath = @".\Cleaner.zip";
                 var extractPath = @".\";
@@ -67,6 +83,20 @@ namespace cUpdater
             }
             catch (Exception ex)
             {
+                var files = Directory.GetFiles("./backup", "*.*", SearchOption.AllDirectories);
+                foreach (var file in files)
+                {
+                    try
+                    {
+                        File.Copy(file, $"../{file}");
+                        //File.Delete(file);
+
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+                }
                 MessageBox.Show(ex.Message);
             }
         }
