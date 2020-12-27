@@ -15,7 +15,7 @@ namespace Cleaner
         {
             try
             {
-                Control item = sn as Label;
+                Control item = sn as Control;
                 item.Visibility = item.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
             }
             catch (Exception ex)

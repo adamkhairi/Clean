@@ -1,4 +1,9 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -8,7 +13,7 @@ namespace cUpdater
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         public MainWindow()
         {
@@ -17,7 +22,6 @@ namespace cUpdater
 
         private void StartUpdate_Click(object sender, RoutedEventArgs e)
         {
-            // var client = new WebClient();
 
             //try
             //{
@@ -25,38 +29,50 @@ namespace cUpdater
             {
                 for (var i = 0; i <= 100; i++)
                 {
-                    Thread.Sleep(100);
+                    Thread.Sleep(200);
 
-                    Dispatcher.Invoke(() =>
+                    Dispatcher.InvokeAsync(() =>
                     {
-                        pBarUp.Value = i;
-                        //Update();
+                        PBarUp.Value = i;
                     });
                 }
             });
-        }
+            Task.Run(() =>
+            {
+                Dispatcher.InvokeAsync(() =>
+                {
+                    Update();
+                });
+            });
 
+            if (PBarUp.Value == 100)
+            {
+                Process.Start(@".\Cleaner.exe");
+                Close();
+            }
+        }
 
         private void Update()
         {
             try
             {
-                Thread.Sleep(5000);
-                //File.Delete(@".\Demo.exe");
-                //client.DownloadFile("http://weirdof.com/v1.5.0.txt", @"v1.5.0.zip");
-                //var zipPath = @".\Demo.zip";
-                //var extractPath = @".\";
-                //ZipFile.ExtractToDirectory(zipPath, extractPath);
-                //File.Delete(@".\Demo.zip");
-                //Process.Start(@".\Cleaner.exe");
-                //Close();
+                var client = new WebClient();
+                //File.Delete(@".\Cleaner.exe");
+                client.DownloadFile("https://github.com/adamkhairi/cc/raw/main/Cleaner.zip", @"Cleaner.zip");
+                var zipPath = @".\Cleaner.zip";
+                var extractPath = @".\";
+                ZipFile.ExtractToDirectory(zipPath, extractPath);
+                File.Delete(@".\Cleaner.zip");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                //    Process.Start("./Cleaner.exe");
-                //    Close();
             }
+        }
+
+        private void LaunchGitHubSite(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/adamkhairi/Clean");
         }
     }
 }
