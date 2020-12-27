@@ -73,39 +73,45 @@ namespace Cleaner
         //Event Btn For Scan 
         private async void scan_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Start scan");
-            BtnClean.IsEnabled = false;
-            BtnHistory.IsEnabled = false;
-            BtnUpdate.IsEnabled = false;
-            BigTitle.Content = "Scan in progress...";
-            Scan.Visibility = Visibility.Hidden;
-            Statisic.Visibility = Visibility.Hidden;
-            Progress.Visibility = Visibility.Visible;
-            Infos.Visibility = Visibility.Visible;
-            // Clear.ClearTempData(temp);
-
-            await Task.Run(PBarSleep);
-
-            //When ProgressBar reached value = 100 =>
-            if (Pbar.Value >= 100)
+            if (MessageBox.Show("Start scan ?", "Scan",
+                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                MessageBox.Show("Scan Complete");
-                Console.WriteLine(Pbar.Value);
-                BtnClean.IsEnabled = true;
-                BtnHistory.IsEnabled = true;
-                BtnUpdate.IsEnabled = true;
-                BigTitle.Content = "Scan Completed";
-                Statisic.Visibility = Visibility.Visible;
-                Infos.Visibility = Visibility.Hidden;
-                Progress.Visibility = Visibility.Hidden;
-                SizeToClean.Content += totalSize.ToPrettySize();
-                PcName.Visibility = Visibility.Visible;
-                UserName.Visibility = Visibility.Visible;
-                PcOs.Visibility = Visibility.Visible;
-                this.lastScan = DateTime.Now.ToString("dd-MM-yyyy HH-mm");
-                LastScan.Content += this.lastScan;
+
+                MessageBox.Show("");
+                BtnClean.IsEnabled = false;
+                BtnHistory.IsEnabled = false;
+                BtnUpdate.IsEnabled = false;
+                BigTitle.Content = "Scan in progress...";
+                Scan.Visibility = Visibility.Hidden;
+                Statisic.Visibility = Visibility.Hidden;
+                Progress.Visibility = Visibility.Visible;
+                Infos.Visibility = Visibility.Visible;
+                // Clear.ClearTempData(temp);
+
+                await Task.Run(PBarSleep);
+
+                //When ProgressBar reached value = 100 =>
+                if (Pbar.Value >= 100)
+                {
+                    MessageBox.Show("Scan Complete", "Done", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    Console.WriteLine(Pbar.Value);
+                    BtnClean.IsEnabled = true;
+                    BtnHistory.IsEnabled = true;
+                    BtnUpdate.IsEnabled = true;
+                    BigTitle.Content = "Scan Completed";
+                    Statisic.Visibility = Visibility.Visible;
+                    Infos.Visibility = Visibility.Hidden;
+                    Progress.Visibility = Visibility.Hidden;
+                    SizeToClean.Content += totalSize.ToPrettySize();
+                    PcName.Visibility = Visibility.Visible;
+                    UserName.Visibility = Visibility.Visible;
+                    PcOs.Visibility = Visibility.Visible;
+                    this.lastScan = DateTime.Now.ToString("dd-MM-yyyy HH-mm");
+                    LastScan.Content += this.lastScan;
+                }
             }
         }
+
 
         //Temp File and ProgressBar  
         private void PBarSleep()
@@ -191,7 +197,6 @@ namespace Cleaner
                 Clear.ClearTempData();
                 HistoryHundler();
                 LastClean.Content += DateTime.Now.ToString("dd-MM HH-mm");
-
             }
         }
 
@@ -201,14 +206,12 @@ namespace Cleaner
             Task.Run(() =>
             {
                 var d = Directory.CreateDirectory(@".\log\" + this.date);
-
                 var file = File.Create($"{d.FullName}/{this.time}.txt");
                 var directory = Path.GetFullPath(file.Name);
-                //var fileTowrite = Directory.GetFiles(file.ToString());
                 try
                 {
                     var text = $"Last scan was {date} at {time} Total Deleted was : {totalSize.ToPrettySize()} \n";
-                    MessageBox.Show(directory);
+                    Console.WriteLine(directory);
 
                     try
                     {
@@ -244,7 +247,7 @@ namespace Cleaner
             {
                 if (!webClient.DownloadString("https://pastebin.com/dl/FXi6TAuS").Contains("1.0.0"))
                     if (MessageBox.Show("Looks like there is an update! Do you want to download it?", "Cleaner",
-                        MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                        MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         using (var client = new WebClient())
                         {
                             Process.Start("./cUpdater.exe");
@@ -254,10 +257,10 @@ namespace Cleaner
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                MessageBox.Show(ex.Message);
             }
         }
 
+        //Button Cancel Scan 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             cancel = true;
@@ -275,6 +278,7 @@ namespace Cleaner
 
         }
 
+        //Top left Icon Github
         private void LaunchGitHubSite(object sender, RoutedEventArgs e)
         {
             Process.Start("https://github.com/adamkhairi/Clean");

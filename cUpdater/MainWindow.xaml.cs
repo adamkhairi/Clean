@@ -47,6 +47,7 @@ namespace cUpdater
 
             if (PBarUp.Value == 100)
             {
+                MessageBox.Show("Update Complete", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
                 Process.Start(@".\Cleaner.exe");
                 Close();
             }
@@ -57,7 +58,7 @@ namespace cUpdater
             try
             {
                 var client = new WebClient();
-                //File.Delete(@".\Cleaner.exe");
+                File.Delete(@".\Cleaner.exe");
                 client.DownloadFile("https://github.com/adamkhairi/cc/raw/main/Cleaner.zip", @"Cleaner.zip");
                 var zipPath = @".\Cleaner.zip";
                 var extractPath = @".\";

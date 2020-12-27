@@ -210,7 +210,7 @@
 
             <TextBox x:Name="Result" Height="180" Text="" VerticalAlignment="Bottom" HorizontalAlignment="Center"
                      Width="500" Margin="0,5" TextWrapping="NoWrap" VerticalScrollBarVisibility="Hidden"
-                     Visibility="Visible" />
+                     Visibility="Hidden" />
         </StackPanel>
 
     </Grid>
