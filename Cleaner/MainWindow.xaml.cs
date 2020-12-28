@@ -247,7 +247,7 @@ namespace Cleaner
             {
                 using (var webClient = new WebClient())
                 {
-                    Thread.Sleep(100);
+                    //Thread.Sleep(100);
 
                     try
                     {
@@ -256,7 +256,8 @@ namespace Cleaner
                             if (MessageBox.Show("Looks like there is an update! Do you want to download it?", "Cleaner",
                                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                             {
-                                Process.Start("./cUpdater.exe");
+                                MessageBox.Show("here");
+                                Process.Start(@".\cUpdater.exe");
                                 Close();
                             }
                         }

@@ -65,9 +65,8 @@ namespace cUpdater
                 {
                     try
                     {
-                        File.Copy(file, $"./backup/{file}");
+                        File.Copy(file, $"./backup/{file}", true);
                         //File.Delete(file);
-
                     }
                     catch (Exception e)
                     {
@@ -77,8 +76,15 @@ namespace cUpdater
                 //File.Delete(@".\Cleaner.exe");
                 client.DownloadFile("https://github.com/adamkhairi/cc/raw/main/Cleaner.zip", @"Cleaner.zip");
                 var zipPath = @".\Cleaner.zip";
-                var extractPath = @".\";
+                Directory.CreateDirectory("./update");
+                var extractPath = @".\update";
                 ZipFile.ExtractToDirectory(zipPath, extractPath);
+                foreach (var file in Directory.GetFiles(extractPath, "*.*", SearchOption.AllDirectories))
+                {
+                    File.Copy(file, "../", true);
+                    File.Delete(file);
+                }
+                Directory.Delete(extractPath, true);
                 File.Delete(@".\Cleaner.zip");
             }
             catch (Exception ex)
@@ -86,16 +92,8 @@ namespace cUpdater
                 var files = Directory.GetFiles("./backup", "*.*", SearchOption.AllDirectories);
                 foreach (var file in files)
                 {
-                    try
-                    {
-                        File.Copy(file, $"../{file}");
-                        //File.Delete(file);
-
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                    }
+                    File.Copy(file, $"../{file}", true);
+                    //File.Delete(file);
                 }
                 MessageBox.Show(ex.Message);
             }
